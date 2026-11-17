@@ -1,0 +1,67 @@
+# Configuración de despliegue en Netlify
+[build]
+  # Optimiza imágenes, verifica (lint, formato, pruebas) y construye.
+  # Si algo falla, Netlify no publica y el sitio en vivo no cambia.
+  command = "npm run check && npm run build"
+  publish = "dist"
+
+[build.environment]
+  # Vite 8 y los scripts .ts requieren Node >= 22.18
+  NODE_VERSION = "24"
+
+# Archivos con hash en el nombre (código e imágenes): caché de 1 año
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/images/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/videos/*"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
+
+# Cabeceras de seguridad para todo el sitio
+# (la Content-Security-Policy va como <meta>, ver vite.config.ts)
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "DENY"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=(), interest-cohort=()"
+
+# Las páginas del sitio anterior apuntan a la sección equivalente (conserva SEO y enlaces)
+[[redirects]]
+  from = "/quienes-somos"
+  to = "/#nosotros"
+  status = 301
+
+[[redirects]]
+  from = "/contacto"
+  to = "/#contacto"
+  status = 301
+
+[[redirects]]
+  from = "/venta-de-pantallas-led"
+  to = "/#servicios"
+  status = 301
+
+[[redirects]]
+  from = "/produccion-audiovisual"
+  to = "/#servicios"
+  status = 301
+
+[[redirects]]
+  from = "/renta-de-equipos-audiovisuales-y-pantallas-led"
+  to = "/#servicios"
+  status = 301
+
+[[redirects]]
+  from = "/blog"
+  to = "/"
+  status = 302

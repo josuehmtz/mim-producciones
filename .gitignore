@@ -1,0 +1,26 @@
+# Logs
+*.log
+npm-debug.log*
+
+node_modules
+dist
+dist-ssr
+*.local
+
+# Editor
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+
+# Claude Code local
+.claude/settings.local.json
+# Contiene rutas propias de esta máquina
+.netlify
+
+# Generados por scripts/optimize-images.ts
+public/images/
+public/og-image.jpg
+public/apple-touch-icon.png
+src/generated/
+.claude/launch.json

@@ -1,0 +1,136 @@
+{
+  "hero": {
+    "src": "assets-src/pexels-filip-hajdoci-355268404-14266493.jpg",
+    "alt": "Escenario con pantallas LED e iluminación azul en un evento masivo"
+  },
+  "about": {
+    "src": "assets-src/WhatsApp-Image-2025-01-24-at-17.09.02-4.jpeg",
+    "alt": "Pantallas LED con el logotipo de MIM Producciones en la cancha de un estadio"
+  },
+  "aboutAccent": {
+    "src": "assets-src/WhatsApp-Image-2025-02-04-at-12.37.34.jpeg",
+    "alt": "Case de transporte de equipo con la marca MIM Producciones"
+  },
+  "ledBackdrop": {
+    "src": "assets-src/504910.jpg",
+    "alt": ""
+  },
+  "services": {
+    "rental": {
+      "src": "assets-src/8785.jpg",
+      "alt": "Técnico preparando equipo de audio frente a un escenario con pantalla LED"
+    },
+    "ledSales": {
+      "src": "assets-src/WhatsApp-Image-2025-02-04-at-12.37.36.jpeg",
+      "alt": "Módulos de pantalla LED listos para instalación"
+    },
+    "production": {
+      "src": "assets-src/WhatsApp-Image-2025-01-24-at-17.09.03-3.jpeg",
+      "alt": "Salón de evento corporativo con tres pantallas LED e iluminación roja y azul"
+    }
+  },
+  "projects": [
+    {
+      "src": "assets-src/WhatsApp-Image-2025-01-24-at-17.09.01.jpeg",
+      "alt": "Clase de cycling en terraza con pantalla LED del logotipo de Mercedes-Benz",
+      "client": "Mercedes-Benz Star Patria",
+      "caption": "Pantalla LED y sonido para clase de cycling.",
+      "category": "Experiencia de marca"
+    },
+    {
+      "src": "assets-src/WhatsApp-Image-2025-01-24-at-17.09.02.jpeg",
+      "alt": "Conferencia con pantalla LED, iluminación robótica y mesas de invitados",
+      "client": "Genové",
+      "caption": "Pantallas LED, iluminación y sonido para conferencia.",
+      "category": "Corporativo"
+    },
+    {
+      "src": "assets-src/WhatsApp-Image-2025-02-19-at-18.09.38.jpeg",
+      "alt": "Stand de Subaru con pantalla LED panorámica y auto deportivo rojo",
+      "client": "Subaru",
+      "caption": "Diseño de stand, pantallas y mobiliario.",
+      "category": "Expo"
+    },
+    {
+      "src": "assets-src/WhatsApp-Image-2025-01-24-at-17.09.03-3.jpeg",
+      "alt": "Evento corporativo con pantallas LED, mesas y sillas vestidas",
+      "client": "PromoOpción",
+      "caption": "Pantallas LED, pantallas interactivas y sonido.",
+      "category": "Corporativo"
+    },
+    {
+      "src": "assets-src/WhatsApp-Image-2025-01-24-at-17.09.03-2.jpeg",
+      "alt": "Escenario con pantalla LED triangular e iluminación neón rosa y azul",
+      "client": "Evento social",
+      "caption": "Pantallas LED, iluminación y sonido.",
+      "category": "Social"
+    },
+    {
+      "src": "assets-src/WhatsApp-Image-2025-01-24-at-17.09.02-1.jpeg",
+      "alt": "Ponente en podio frente a pantalla LED en conferencia",
+      "client": "Genové",
+      "caption": "Escenario, podio y contenidos en pantalla LED.",
+      "category": "Corporativo"
+    },
+    {
+      "src": "assets-src/WhatsApp-Image-2025-02-06-at-13.41.12.jpeg",
+      "alt": "Stand comercial rojo con pantalla LED elevada en una exposición",
+      "client": "Stand en exposición",
+      "caption": "Estructura, pantalla LED e iluminación para stand.",
+      "category": "Expo"
+    },
+    {
+      "src": "assets-src/WhatsApp-Image-2025-01-24-at-17.09.03-1.jpeg",
+      "alt": "Pantalla LED de gran formato con bocinas a los lados en un restaurante",
+      "client": "Transmisión en vivo",
+      "caption": "Pantalla LED de gran formato y sonido.",
+      "category": "Transmisión"
+    },
+    {
+      "src": "assets-src/WhatsApp-Image-2025-02-06-at-13.41.11-4.jpeg",
+      "alt": "Jardín iluminado con luces de colores sobre los árboles durante una celebración",
+      "client": "Celebración privada",
+      "caption": "Iluminación arquitectónica y ambiental.",
+      "category": "Social"
+    },
+    {
+      "src": "assets-src/WhatsApp-Image-2025-01-24-at-17.09.04.jpeg",
+      "alt": "Asistentes de un evento de integración frente a pantallas LED",
+      "client": "Integración 2025",
+      "caption": "Producción integral para evento de integración.",
+      "category": "Corporativo"
+    },
+    {
+      "src": "assets-src/WhatsApp-Image-2025-02-06-at-13.41.11.jpeg",
+      "alt": "Render 3D de la estructura de truss para un stand",
+      "client": "Diseño de stand",
+      "caption": "Planeación técnica y render de estructura.",
+      "category": "Expo"
+    },
+    {
+      "src": "assets-src/WhatsApp-Image-2025-02-04-at-12.37.39.jpeg",
+      "alt": "Componentes y módulos de pantalla LED dentro de un case",
+      "client": "Venta de pantallas LED",
+      "caption": "Entrega e instalación de pantalla LED con capacitación.",
+      "category": "Venta"
+    }
+  ],
+  "clients": [
+    { "src": "assets-src/clients/cliente-02.png", "alt": "Mercedes-Benz" },
+    { "src": "assets-src/clients/cliente-06.png", "alt": "BYD" },
+    { "src": "assets-src/clients/cliente-04.png", "alt": "MG" },
+    { "src": "assets-src/clients/cliente-01.png", "alt": "Mercedes-Benz Places" },
+    { "src": "assets-src/clients/cliente-05.png", "alt": "Atlas FC" },
+    { "src": "assets-src/clients/cliente-10.png", "alt": "Riu" },
+    { "src": "assets-src/clients/cliente-19.png", "alt": "MetLife" },
+    { "src": "assets-src/clients/cliente-03.png", "alt": "Subaru" },
+    { "src": "assets-src/clients/cliente-07.png", "alt": "Akron" },
+    { "src": "assets-src/clients/cliente-08.png", "alt": "Electrolit" },
+    { "src": "assets-src/clients/cliente-15.png", "alt": "Mercado Libre" },
+    { "src": "assets-src/clients/cliente-12.png", "alt": "Clase Azul" },
+    { "src": "assets-src/clients/cliente-21.png", "alt": "WeWork" },
+    { "src": "assets-src/clients/cliente-20.png", "alt": "PRISA" },
+    { "src": "assets-src/clients/cliente-18.png", "alt": "Flex" },
+    { "src": "assets-src/clients/cliente-13.png", "alt": "Soriana" }
+  ]
+}

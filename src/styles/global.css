@@ -1,0 +1,290 @@
+@import 'tailwindcss';
+
+/*
+ * Tema — MIM Producciones
+ * Paleta tomada del logotipo: cian LED sobre negro de escenario, con un acento violeta
+ * para los degradados. Cada variable genera utilidades (p. ej. --color-led → text-led, bg-led).
+ */
+@theme {
+  /* Solo la paleta de la marca: sin los colores por defecto de Tailwind */
+  --color-*: initial;
+  --color-white: #fff;
+  --color-black: #000;
+  --color-transparent: transparent;
+  --color-ink: #05070c;
+  --color-ink-soft: #0a0e17;
+  --color-ink-raised: #101624;
+  --color-ink-line: rgb(255 255 255 / 0.08);
+  --color-fg: #eef2f8;
+  --color-fg-muted: #9aa6ba;
+  --color-fg-subtle: #6b778c;
+  --color-led: #3dbff0;
+  --color-led-light: #9ee3ff;
+  --color-led-deep: #0e8ec4;
+  --color-violet: #7b6cff;
+  --color-navy: #151a33;
+  --color-danger: #ff7a7a;
+  --color-success: #4ade80;
+
+  /* Tipografía */
+  --font-display: 'Sora Variable', 'Sora', system-ui, sans-serif;
+  --font-body: 'Inter Variable', 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  /* Tamaños fluidos */
+  --text-*: initial;
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: clamp(1.0625rem, 1rem + 0.3vw, 1.1875rem);
+  --text-xl: clamp(1.25rem, 1.1rem + 0.7vw, 1.625rem);
+  --text-2xl: clamp(1.875rem, 1.4rem + 2.2vw, 3.25rem);
+  --text-3xl: clamp(2.5rem, 1.5rem + 5vw, 5.75rem);
+  --text-stat: clamp(2.25rem, 1.8rem + 2vw, 3.5rem);
+
+  --tracking-eyebrow: 0.28em;
+
+  /* Espaciado y layout (además de la escala numérica de Tailwind: 4 = 1rem) */
+  --spacing-section: clamp(5rem, 3rem + 8vw, 10rem);
+  --spacing-gutter: clamp(1rem, 0.5rem + 2.5vw, 2.5rem);
+  --spacing-header: 72px;
+  --container-site: 1240px;
+  --container-narrow: 760px;
+
+  /* Breakpoint principal del sitio (menú de escritorio) */
+  --breakpoint-lg: 60rem;
+
+  /* Forma y movimiento */
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+  --shadow-glow: 0 0 0 1px rgb(61 191 240 / 0.25), 0 18px 60px -20px rgb(61 191 240 / 0.45);
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+
+  --animate-fade-in: fade-in 400ms var(--ease-out);
+  --animate-rise: rise 900ms var(--ease-out) both;
+  --animate-marquee: marquee 40s linear infinite;
+  --animate-pulse-dot: pulse-dot 2.4s ease-in-out infinite;
+  --animate-scan: scan 6s linear infinite;
+  --animate-zoom: zoom 400ms var(--ease-out);
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+  }
+
+  @keyframes rise {
+    from {
+      opacity: 0;
+      transform: translateY(24px);
+    }
+  }
+
+  @keyframes marquee {
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  /* Encendido de los "píxeles" del logotipo */
+  @keyframes pulse-dot {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.55;
+    }
+  }
+
+  /* Línea de barrido tipo pantalla LED */
+  @keyframes scan {
+    from {
+      transform: translateY(-100%);
+    }
+    to {
+      transform: translateY(100vh);
+    }
+  }
+
+  @keyframes zoom {
+    from {
+      opacity: 0;
+      transform: scale(0.97);
+    }
+  }
+}
+
+/* ---------- Base ---------- */
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    scroll-behavior: smooth;
+    scroll-padding-top: var(--spacing-header);
+    color-scheme: dark;
+  }
+
+  body {
+    min-height: 100dvh;
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    line-height: 1.65;
+    color: var(--color-fg);
+    background: var(--color-ink);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+  }
+
+  img,
+  picture,
+  svg,
+  video {
+    display: block;
+    max-width: 100%;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    line-height: 1.05;
+    letter-spacing: -0.025em;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  button:not(:disabled),
+  [role='button']:not(:disabled) {
+    cursor: pointer;
+  }
+
+  ::selection {
+    background: var(--color-led);
+    color: var(--color-ink);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-led);
+    outline-offset: 3px;
+  }
+
+  main:focus {
+    outline: none;
+  }
+}
+
+/* ---------- Utilidades propias ---------- */
+
+/* Ancho máximo del contenido con márgenes laterales fluidos */
+@utility wrapper {
+  width: min(100% - 2 * var(--spacing-gutter), var(--container-site));
+  margin-inline: auto;
+}
+
+/* Degradado de marca (cian → violeta) */
+@utility bg-brand-gradient {
+  background-image: linear-gradient(110deg, #9ee3ff 0%, #3dbff0 40%, #7b6cff 100%);
+}
+
+@utility text-brand-gradient {
+  background-image: linear-gradient(110deg, #9ee3ff 0%, #3dbff0 40%, #7b6cff 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Rejilla de puntos tipo pantalla LED (fondo decorativo) */
+@utility bg-led-grid {
+  background-image: radial-gradient(rgb(61 191 240 / 0.16) 1px, transparent 1.6px);
+  background-size: 18px 18px;
+}
+
+/* Oscurece la foto o video de portada para que el texto se lea */
+@utility bg-hero-scrim {
+  background:
+    radial-gradient(ellipse at 30% 40%, rgb(5 7 12 / 0.2) 0%, rgb(5 7 12 / 0.75) 75%),
+    linear-gradient(180deg, rgb(5 7 12 / 0.7) 0%, rgb(5 7 12 / 0.15) 35%, rgb(5 7 12 / 1) 100%);
+}
+
+/* Desvanece los bordes laterales (carrusel de logotipos) */
+@utility mask-fade-x {
+  mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+}
+
+/* Rótulo pequeño en mayúsculas sobre los títulos */
+@utility eyebrow {
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: var(--tracking-eyebrow);
+  text-transform: uppercase;
+}
+
+/* Tarjeta con borde translúcido y brillo al pasar el cursor */
+@utility card-surface {
+  background: linear-gradient(180deg, rgb(255 255 255 / 0.04), rgb(255 255 255 / 0.01));
+  border: 1px solid var(--color-ink-line);
+  border-radius: var(--radius-lg);
+}
+
+/* ---------- Componentes ---------- */
+@layer components {
+  .skip-link {
+    position: fixed;
+    top: --spacing(3);
+    left: --spacing(3);
+    z-index: 100;
+    padding: --spacing(3) --spacing(6);
+    border-radius: var(--radius-sm);
+    background: var(--color-led);
+    color: var(--color-ink);
+    font-weight: 600;
+    transform: translateY(-200%);
+    transition: transform 200ms var(--ease-out);
+
+    &:focus-visible {
+      transform: translateY(0);
+    }
+  }
+
+  /* Aparición al entrar en pantalla (la controla <Reveal>) */
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition:
+      opacity 900ms var(--ease-out),
+      transform 900ms var(--ease-out);
+    transition-delay: var(--reveal-delay, 0ms);
+
+    &.is-visible {
+      opacity: 1;
+      transform: none;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+}
