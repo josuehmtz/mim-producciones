@@ -4,6 +4,8 @@ on:
   push:
     branches: [main]
   pull_request:
+  # Permite ejecutarlo a mano desde la pestaña Actions
+  workflow_dispatch:
 
 # Cancela ejecuciones anteriores de la misma rama al hacer un nuevo push
 concurrency:
