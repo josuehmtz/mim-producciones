@@ -37,7 +37,7 @@ export const CURRENT_YEAR = new Date().getFullYear()
 export const YEARS_OF_EXPERIENCE = CURRENT_YEAR - FOUNDING_YEAR
 
 export const hero = {
-  eyebrow: 'Producción audiovisual · Guadalajara',
+  eyebrow: `Producción audiovisual en Guadalajara desde ${FOUNDING_YEAR}`,
   title: 'Convertimos ideas en emociones que',
   highlight: 'trascienden la pantalla',
   intro:

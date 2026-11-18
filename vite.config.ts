@@ -5,6 +5,14 @@ import react from '@vitejs/plugin-react'
 import { defineConfig, type HtmlTagDescriptor, type Plugin } from 'vite'
 
 /**
+ * Hash del script inline de la insignia "Powered by Netlify" que Netlify inyecta en
+ * los sitios del plan gratuito (/.netlify/scripts/hud). Sin él, la CSP lo bloquea y
+ * aparece un error en la consola. Si Netlify cambia ese script, la consola mostrará
+ * el nuevo hash ("sha256-…"): reemplázalo aquí.
+ */
+const NETLIFY_BADGE_SCRIPT_HASH = "'sha256-BkKP2XO6WOEc3kXOiLr2ZoY83hamalKjPY9xBcbXVuw='"
+
+/**
  * Content-Security-Policy del sitio. Va como <meta> solo en build
  * (el modo dev de Vite inyecta scripts inline).
  */
@@ -14,7 +22,7 @@ const CSP = [
   "media-src 'self'",
   "style-src 'self' 'unsafe-inline'",
   "font-src 'self'",
-  "script-src 'self'",
+  `script-src 'self' ${NETLIFY_BADGE_SCRIPT_HASH}`,
   "connect-src 'self'",
   "frame-src 'none'",
   "object-src 'none'",

@@ -39,21 +39,45 @@ function buildDots(): { dots: Dot[]; columns: number } {
 
 const { dots, columns } = buildDots()
 
+const WIDTH = columns * PITCH
+const DOTS_HEIGHT = ROWS * PITCH
+/** "PRODUCCIONES" va dentro del mismo SVG para escalar en proporción exacta con los puntos */
+const WORDMARK = { gap: 7, size: 14.5, capHeight: 10.6 }
+const WORDMARK_HEIGHT = WORDMARK.gap + WORDMARK.size
+
 interface LogoProps {
   /** Muestra "PRODUCCIONES" debajo de los puntos */
   wordmark?: boolean
   /** Los puntos parpadean suavemente, como una pantalla encendida */
   animated?: boolean
+  /** Brillo cian alrededor de los puntos */
+  glow?: boolean
+  /** Decorativo (marca de agua): se oculta a lectores de pantalla */
+  decorative?: boolean
   className?: string
 }
 
-export function Logo({ wordmark = true, animated = false, className }: LogoProps) {
+/** El ancho se controla con `className` (p. ej. `w-32`); el alto es proporcional. */
+export function Logo({
+  wordmark = true,
+  animated = false,
+  glow = true,
+  decorative = false,
+  className,
+}: LogoProps) {
+  const height = DOTS_HEIGHT + (wordmark ? WORDMARK_HEIGHT : 0)
+
   return (
-    <span role="img" aria-label="MIM Producciones" className={cn('inline-grid gap-1.5', className)}>
-      <svg
-        viewBox={`0 0 ${columns * PITCH} ${ROWS * PITCH}`}
-        className="h-auto w-full text-led drop-shadow-[0_0_10px_rgb(61_191_240/0.45)]"
-        aria-hidden="true"
+    <svg
+      viewBox={`0 0 ${WIDTH} ${height}`}
+      className={cn('block h-auto', className)}
+      {...(decorative
+        ? { 'aria-hidden': true }
+        : { role: 'img', 'aria-label': 'MIM Producciones' })}
+    >
+      <g
+        fill="var(--color-led)"
+        className={glow ? 'drop-shadow-[0_0_6px_rgb(61_191_240/0.55)]' : undefined}
       >
         {dots.map((dot, i) => (
           <circle
@@ -61,22 +85,27 @@ export function Logo({ wordmark = true, animated = false, className }: LogoProps
             cx={dot.cx}
             cy={dot.cy}
             r={RADIUS}
-            fill="currentColor"
             className={animated ? 'animate-pulse-dot' : undefined}
             style={
               animated ? ({ animationDelay: `${(i * 137) % 2400}ms` } as CSSProperties) : undefined
             }
           />
         ))}
-      </svg>
+      </g>
       {wordmark && (
-        <span
-          aria-hidden="true"
-          className="text-center font-display text-[0.62em] leading-none font-medium tracking-[0.2em] text-fg"
+        <text
+          x={WIDTH / 2}
+          y={DOTS_HEIGHT + WORDMARK.gap + WORDMARK.capHeight}
+          textAnchor="middle"
+          textLength={WIDTH - 2}
+          lengthAdjust="spacingAndGlyphs"
+          fontSize={WORDMARK.size}
+          fill="var(--color-fg)"
+          className="font-display font-medium"
         >
           PRODUCCIONES
-        </span>
+        </text>
       )}
-    </span>
+    </svg>
   )
 }

@@ -11,7 +11,7 @@ export function Footer() {
     <footer className="relative border-t border-ink-line bg-ink-soft">
       <div className="wrapper grid gap-12 py-16 sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1.2fr]">
         <div className="grid content-start gap-5">
-          <Logo className="w-[140px] text-[1.1rem]" />
+          <Logo className="w-[168px]" />
           <p className="max-w-xs text-sm text-fg-muted">
             Pantallas LED, audio, iluminación y producción de eventos desde {contact.city}.
           </p>

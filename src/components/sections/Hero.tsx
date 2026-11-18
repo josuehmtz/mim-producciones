@@ -4,6 +4,7 @@ import { useMediaQuery } from '../../hooks/useMediaQuery'
 import { whatsappUrl } from '../../utils/links'
 import { Button } from '../ui/Button'
 import { Counter } from '../ui/Counter'
+import { Logo } from '../ui/Logo'
 import { ResponsiveImage } from '../ui/ResponsiveImage'
 import { VideoPlayer, type VideoSource } from '../ui/VideoPlayer'
 
@@ -36,17 +37,28 @@ export function Hero() {
         {/* Brillo de color detrás del título */}
         <div className="absolute top-1/4 -left-40 size-[36rem] rounded-full bg-led/20 blur-[120px]" />
         <div className="absolute -right-40 bottom-0 size-[30rem] rounded-full bg-violet/20 blur-[120px]" />
+        {/* Marca de agua: la matriz de puntos del logotipo a gran escala */}
+        <Logo
+          decorative
+          wordmark={false}
+          glow={false}
+          className="absolute top-1/2 -right-[12%] w-[min(1100px,120vw)] -translate-y-1/2 opacity-[0.07] max-lg:top-[38%]"
+        />
       </div>
 
-      <div className="wrapper grid flex-1 items-center gap-12 py-16 lg:grid-cols-[1.35fr_0.65fr]">
-        <div className="grid max-w-3xl gap-8">
-          <p className="inline-flex w-fit animate-rise items-center gap-3 rounded-full border border-led/30 bg-led/10 px-4 py-2 eyebrow text-led-light">
-            <span className="relative flex size-2">
-              <span className="absolute inline-flex size-full animate-ping rounded-full bg-led opacity-75" />
-              <span className="relative inline-flex size-2 rounded-full bg-led" />
-            </span>
-            {hero.eyebrow}
-          </p>
+      <div className="wrapper grid flex-1 items-center gap-12 py-12 lg:grid-cols-[1.35fr_0.65fr] lg:py-16">
+        <div className="grid max-w-3xl gap-7">
+          {/* Firma de la marca: el logotipo encendido antes del mensaje */}
+          <div className="grid animate-rise gap-5">
+            <Logo animated className="w-[200px] sm:w-[260px]" />
+            <p className="inline-flex items-center gap-3 eyebrow text-led-light">
+              <span className="relative flex size-2">
+                <span className="absolute inline-flex size-full animate-ping rounded-full bg-led opacity-75" />
+                <span className="relative inline-flex size-2 rounded-full bg-led" />
+              </span>
+              {hero.eyebrow}
+            </p>
+          </div>
 
           <h1
             id="hero-title"

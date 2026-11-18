@@ -50,8 +50,17 @@ export function Header() {
       )}
     >
       <div className="wrapper flex h-header items-center gap-8">
-        <a href="#inicio" className="mr-auto py-2" aria-label="MIM Producciones, ir al inicio">
-          <Logo className="w-[92px] text-[0.75rem]" />
+        <a
+          href="#inicio"
+          aria-label="MIM Producciones, ir al inicio"
+          className={cn(
+            'mr-auto py-2 transition-[opacity,translate] duration-500 ease-out focus-visible:translate-y-0 focus-visible:opacity-100',
+            // Arriba de todo el logotipo grande del hero ya firma la página;
+            // al bajar, este toma el relevo para que la marca siempre esté visible.
+            scrolled || open ? 'translate-y-0 opacity-100' : '-translate-y-2 opacity-0',
+          )}
+        >
+          <Logo decorative className="w-[112px] sm:w-[128px]" />
         </a>
 
         <nav aria-label="Principal" className="hidden lg:block">
