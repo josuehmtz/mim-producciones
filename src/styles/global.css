@@ -40,6 +40,9 @@
   --text-2xl: clamp(1.875rem, 1.4rem + 2.2vw, 3.25rem);
   --text-3xl: clamp(2.5rem, 1.5rem + 5vw, 5.75rem);
   --text-stat: clamp(2.25rem, 1.8rem + 2vw, 3.5rem);
+  /* Titular del hero: crece con el ancho, pero también se limita por el alto de la
+     pantalla para que el mensaje completo se lea sin hacer scroll */
+  --text-hero: clamp(2.25rem, min(1rem + 3.6vw, 6.4svh), 4.5rem);
 
   --tracking-eyebrow: 0.28em;
 
@@ -65,8 +68,13 @@
   --animate-rise: rise 900ms var(--ease-out) both;
   --animate-marquee: marquee 40s linear infinite;
   --animate-pulse-dot: pulse-dot 2.4s ease-in-out infinite;
-  --animate-scan: scan 6s linear infinite;
+  --animate-scan: scan 7s cubic-bezier(0.4, 0, 0.2, 1) infinite;
   --animate-zoom: zoom 400ms var(--ease-out);
+  --animate-kenburns: kenburns 22s ease-out both;
+  --animate-word-in: word-in 900ms var(--ease-out) both;
+  --animate-shimmer: shimmer 6s linear infinite;
+  --animate-eq: eq 1s ease-in-out infinite alternate;
+  --animate-float: float 7s ease-in-out infinite;
 
   @keyframes fade-in {
     from {
@@ -98,13 +106,88 @@
     }
   }
 
-  /* Línea de barrido tipo pantalla LED */
+  /* Cada píxel del logotipo "enciende" con un destello, como una pantalla al arrancar */
+  @keyframes power-on {
+    0% {
+      opacity: 0.08;
+      filter: brightness(1);
+    }
+    60% {
+      opacity: 1;
+      filter: brightness(2.2);
+    }
+    100% {
+      opacity: 1;
+      filter: brightness(1);
+    }
+  }
+
+  /* Línea de barrido tipo pantalla LED (recorre el hero de arriba abajo) */
   @keyframes scan {
+    0% {
+      transform: translateY(-10vh);
+      opacity: 0;
+    }
+    10% {
+      opacity: 1;
+    }
+    60%,
+    100% {
+      transform: translateY(110vh);
+      opacity: 0;
+    }
+  }
+
+  /* Acercamiento lento de la foto de portada */
+  @keyframes kenburns {
     from {
-      transform: translateY(-100%);
+      transform: scale(1.15);
     }
     to {
-      transform: translateY(100vh);
+      transform: scale(1.03);
+    }
+  }
+
+  /* Palabras del titular: pasan de desenfocadas a nítidas, como un enfoque de cámara */
+  @keyframes word-in {
+    from {
+      opacity: 0;
+      filter: blur(14px);
+      transform: translateY(0.35em);
+    }
+  }
+
+  /* Brillo que recorre el texto con degradado */
+  @keyframes shimmer {
+    to {
+      background-position: 200% center;
+    }
+  }
+
+  /* Barras del ecualizador */
+  @keyframes eq {
+    from {
+      transform: scaleY(0.25);
+    }
+    to {
+      transform: scaleY(1);
+    }
+  }
+
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+
+  /* Barra de progreso de lectura (ligada al scroll) */
+  @keyframes progress {
+    from {
+      transform: scaleX(0);
     }
   }
 
@@ -201,6 +284,23 @@
   color: transparent;
 }
 
+/* Degradado de marca con un brillo que lo recorre continuamente */
+@utility text-shimmer {
+  background-image: linear-gradient(
+    110deg,
+    #9ee3ff 0%,
+    #3dbff0 25%,
+    #7b6cff 50%,
+    #3dbff0 75%,
+    #9ee3ff 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: var(--animate-shimmer);
+}
+
 /* Rejilla de puntos tipo pantalla LED (fondo decorativo) */
 @utility bg-led-grid {
   background-image: radial-gradient(rgb(61 191 240 / 0.16) 1px, transparent 1.6px);
@@ -251,6 +351,57 @@
 
     &:focus-visible {
       transform: translateY(0);
+    }
+  }
+
+  /* Píxel del logotipo: se enciende en secuencia (--d) y luego titila suavemente */
+  .led-dot {
+    animation:
+      power-on 700ms var(--ease-out) both var(--d, 0ms),
+      pulse-dot 3.2s ease-in-out calc(var(--d, 0ms) + 1.4s) infinite;
+  }
+
+  /*
+   * Luz que sigue al cursor (la posición la escribe el hook useSpotlight en --mx/--my).
+   * Se usa en el hero y en las tarjetas: da la sensación de un reflector sobre el escenario.
+   */
+  .spotlight {
+    position: relative;
+    isolation: isolate;
+
+    &::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      border-radius: inherit;
+      opacity: 0;
+      background: radial-gradient(
+        var(--spot-size, 380px) circle at var(--mx, 50%) var(--my, 50%),
+        rgb(61 191 240 / var(--spot-strength, 0.16)),
+        transparent 70%
+      );
+      transition: opacity 400ms var(--ease-out);
+    }
+
+    &:hover::after,
+    &[data-spotlight='always']::after {
+      opacity: 1;
+    }
+  }
+
+  /* Barra de progreso ligada al scroll (CSS puro; si el navegador no lo soporta, se oculta) */
+  .scroll-progress {
+    display: none;
+  }
+
+  @supports (animation-timeline: scroll()) {
+    .scroll-progress {
+      display: block;
+      transform-origin: left;
+      animation: progress linear both;
+      animation-timeline: scroll(root);
     }
   }
 

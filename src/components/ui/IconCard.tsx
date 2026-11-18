@@ -1,3 +1,4 @@
+import { useSpotlight } from '../../hooks/useSpotlight'
 import { cn } from '../../utils/cn'
 import { Icon, type IconName } from './Icon'
 
@@ -18,19 +19,18 @@ export function IconCard({
   headingLevel: Heading = 'h3',
   className,
 }: IconCardProps) {
+  // Un reflector de luz cian sigue al cursor dentro de la tarjeta
+  const ref = useSpotlight<HTMLElement>()
+
   return (
     <article
+      ref={ref}
       className={cn(
-        'group relative grid h-full content-start gap-4 overflow-hidden card-surface p-7 transition-[border-color,translate] duration-300 hover:-translate-y-1 hover:border-led/40',
+        'group spotlight grid h-full content-start gap-4 overflow-hidden card-surface p-7 transition-[border-color,translate] duration-300 hover:-translate-y-1 hover:border-led/40',
         className,
       )}
     >
-      {/* Halo que aparece al pasar el cursor */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute -top-16 -right-16 size-40 rounded-full bg-led/0 blur-3xl transition-colors duration-500 group-hover:bg-led/25"
-      />
-      <span className="grid size-12 place-items-center rounded-md border border-led/25 bg-led/10 text-led [&_svg]:size-6">
+      <span className="grid size-12 place-items-center rounded-md border border-led/25 bg-led/10 text-led transition-[box-shadow,background-color] duration-300 group-hover:bg-led/20 group-hover:shadow-[0_0_24px_rgb(61_191_240/0.45)] [&_svg]:size-6">
         <Icon name={icon} />
       </span>
       <Heading className="text-xl">{title}</Heading>

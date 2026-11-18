@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react'
-import { siteImages, type Project } from '../../../data/images'
+import { PROJECT_CATEGORIES, siteImages, type Project } from '../../../data/images'
 import { cn } from '../../../utils/cn'
 import { Reveal } from '../../ui/Reveal'
 import { Section } from '../../ui/Section'
@@ -9,10 +9,10 @@ import { ProjectCard } from './ProjectCard'
 
 const ALL = 'Todos'
 
-/** Categorías únicas en el orden en que aparecen. */
+/** Solo las categorías que tienen al menos un proyecto (así no hay filtros vacíos). */
 const categoriesOf = (projects: readonly Project[]) => [
   ALL,
-  ...new Set(projects.map((p) => p.category)),
+  ...PROJECT_CATEGORIES.filter((c) => projects.some((p) => p.category === c)),
 ]
 
 /**

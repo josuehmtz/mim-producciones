@@ -25,6 +25,20 @@
   [headers.values]
     Cache-Control = "public, max-age=604800"
 
+# Fotos originales: solo las usa la vista previa del panel /admin
+[[headers]]
+  for = "/assets-src/*"
+  [headers.values]
+    Cache-Control = "public, max-age=3600"
+    X-Robots-Tag = "noindex"
+
+# Panel de administración: siempre la versión más reciente de la configuración
+[[headers]]
+  for = "/admin/*"
+  [headers.values]
+    Cache-Control = "no-cache"
+    X-Robots-Tag = "noindex"
+
 # Cabeceras de seguridad para todo el sitio
 # (la Content-Security-Policy va como <meta>, ver vite.config.ts)
 [[headers]]

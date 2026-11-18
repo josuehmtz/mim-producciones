@@ -32,8 +32,9 @@ const base =
   'group/btn relative inline-flex items-center justify-center gap-2.5 overflow-hidden rounded-full font-display font-semibold tracking-tight whitespace-nowrap transition-[transform,box-shadow,background-color,border-color,color] duration-300 ease-out disabled:pointer-events-none disabled:opacity-50 [&_svg]:size-[1.15em] [&_svg]:shrink-0'
 
 const variants: Record<Variant, string> = {
+  // Al pasar el cursor, un destello de luz cruza el botón
   primary:
-    'bg-brand-gradient text-ink shadow-[0_10px_30px_-12px_rgb(61_191_240/0.8)] hover:-translate-y-0.5 hover:shadow-[0_16px_40px_-12px_rgb(61_191_240/0.9)]',
+    'bg-brand-gradient text-ink shadow-[0_10px_30px_-12px_rgb(61_191_240/0.8)] hover:-translate-y-0.5 hover:shadow-[0_16px_40px_-12px_rgb(61_191_240/0.9)] before:absolute before:inset-y-0 before:-left-1/2 before:w-1/2 before:-skew-x-12 before:bg-linear-to-r before:from-transparent before:via-white/50 before:to-transparent before:transition-transform before:duration-700 before:ease-out hover:before:translate-x-[300%] [&>*]:relative',
   outline:
     'border border-fg/25 bg-white/[0.03] text-fg backdrop-blur-sm hover:-translate-y-0.5 hover:border-led hover:text-led-light',
   ghost: 'text-fg hover:text-led-light',

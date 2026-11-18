@@ -3,6 +3,9 @@
     "src": "assets-src/pexels-filip-hajdoci-355268404-14266493.jpg",
     "alt": "Escenario con pantallas LED e iluminación azul en un evento masivo"
   },
+  "showreel": {
+    "video": "/videos/showreel.mp4"
+  },
   "about": {
     "src": "assets-src/WhatsApp-Image-2025-01-24-at-17.09.02-4.jpeg",
     "alt": "Pantallas LED con el logotipo de MIM Producciones en la cancha de un estadio"
@@ -116,21 +119,69 @@
     }
   ],
   "clients": [
-    { "src": "assets-src/clients/cliente-02.png", "alt": "Mercedes-Benz" },
-    { "src": "assets-src/clients/cliente-06.png", "alt": "BYD" },
-    { "src": "assets-src/clients/cliente-04.png", "alt": "MG" },
-    { "src": "assets-src/clients/cliente-01.png", "alt": "Mercedes-Benz Places" },
-    { "src": "assets-src/clients/cliente-05.png", "alt": "Atlas FC" },
-    { "src": "assets-src/clients/cliente-10.png", "alt": "Riu" },
-    { "src": "assets-src/clients/cliente-19.png", "alt": "MetLife" },
-    { "src": "assets-src/clients/cliente-03.png", "alt": "Subaru" },
-    { "src": "assets-src/clients/cliente-07.png", "alt": "Akron" },
-    { "src": "assets-src/clients/cliente-08.png", "alt": "Electrolit" },
-    { "src": "assets-src/clients/cliente-15.png", "alt": "Mercado Libre" },
-    { "src": "assets-src/clients/cliente-12.png", "alt": "Clase Azul" },
-    { "src": "assets-src/clients/cliente-21.png", "alt": "WeWork" },
-    { "src": "assets-src/clients/cliente-20.png", "alt": "PRISA" },
-    { "src": "assets-src/clients/cliente-18.png", "alt": "Flex" },
-    { "src": "assets-src/clients/cliente-13.png", "alt": "Soriana" }
+    {
+      "src": "assets-src/clients/cliente-02.png",
+      "alt": "Mercedes-Benz"
+    },
+    {
+      "src": "assets-src/clients/cliente-06.png",
+      "alt": "BYD"
+    },
+    {
+      "src": "assets-src/clients/cliente-04.png",
+      "alt": "MG"
+    },
+    {
+      "src": "assets-src/clients/cliente-01.png",
+      "alt": "Mercedes-Benz Places"
+    },
+    {
+      "src": "assets-src/clients/cliente-05.png",
+      "alt": "Atlas FC"
+    },
+    {
+      "src": "assets-src/clients/cliente-10.png",
+      "alt": "Riu"
+    },
+    {
+      "src": "assets-src/clients/cliente-19.png",
+      "alt": "MetLife"
+    },
+    {
+      "src": "assets-src/clients/cliente-03.png",
+      "alt": "Subaru"
+    },
+    {
+      "src": "assets-src/clients/cliente-07.png",
+      "alt": "Akron"
+    },
+    {
+      "src": "assets-src/clients/cliente-08.png",
+      "alt": "Electrolit"
+    },
+    {
+      "src": "assets-src/clients/cliente-15.png",
+      "alt": "Mercado Libre"
+    },
+    {
+      "src": "assets-src/clients/cliente-12.png",
+      "alt": "Clase Azul"
+    },
+    {
+      "src": "assets-src/clients/cliente-21.png",
+      "alt": "WeWork"
+    },
+    {
+      "src": "assets-src/clients/cliente-20.png",
+      "alt": "PRISA"
+    },
+    {
+      "src": "assets-src/clients/cliente-18.png",
+      "alt": "Flex"
+    },
+    {
+      "src": "assets-src/clients/cliente-13.png",
+      "alt": "Soriana"
+    }
   ]
 }

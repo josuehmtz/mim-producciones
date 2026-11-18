@@ -5,3 +5,5 @@ assets-src
 assets-brand
 src/generated/
 package-lock.json
+# Contenido administrado desde /admin (Decap CMS escribe su propio formato)
+src/content

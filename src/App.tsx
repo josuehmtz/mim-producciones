@@ -8,6 +8,7 @@ import { Hero } from './components/sections/Hero'
 import { Process } from './components/sections/Process'
 import { Projects } from './components/sections/Projects/Projects'
 import { Services } from './components/sections/Services'
+import { ScrollProgress } from './components/ui/ScrollProgress'
 import { WhatsAppFab } from './components/ui/WhatsAppFab'
 
 export default function App() {
@@ -16,6 +17,7 @@ export default function App() {
       <a href="#contenido" className="skip-link">
         Saltar al contenido
       </a>
+      <ScrollProgress />
       <Header />
       <main id="contenido" tabIndex={-1}>
         <Hero />

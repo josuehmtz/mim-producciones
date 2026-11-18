@@ -10,25 +10,29 @@ y **Tailwind CSS v4**, listo para desplegar en **Netlify**.
 
 ## Scripts
 
-| Comando           | Descripción                                                   |
-| ----------------- | ------------------------------------------------------------- |
-| `npm run dev`     | Servidor de desarrollo en http://localhost:5173               |
-| `npm run build`   | Typecheck + build de producción en `dist/`                    |
-| `npm run preview` | Sirve el build de producción localmente                       |
-| `npm test`        | Pruebas unitarias y de componentes (Vitest + Testing Library) |
-| `npm run lint`    | Lint con Oxlint (reglas de React, hooks y TypeScript)         |
-| `npm run format`  | Formatea con Prettier (ordena clases de Tailwind)             |
-| `npm run images`  | Optimiza las fotos de `src/content/images.json` (automático)  |
-| `npm run check`   | Lint + formato + pruebas (lo que corre CI y Netlify)          |
+| Comando               | Descripción                                                                       |
+| --------------------- | --------------------------------------------------------------------------------- |
+| `npm run dev`         | Servidor de desarrollo en http://localhost:5173                                   |
+| `npm run build`       | Typecheck + build de producción en `dist/`                                        |
+| `npm run preview`     | Sirve el build de producción localmente                                           |
+| `npm test`            | Pruebas unitarias y de componentes (Vitest + Testing Library)                     |
+| `npm run lint`        | Lint con Oxlint (reglas de React, hooks y TypeScript)                             |
+| `npm run format`      | Formatea con Prettier (ordena clases de Tailwind)                                 |
+| `npm run images`      | Optimiza las fotos de `src/content/images.json` (automático)                      |
+| `npm run check`       | Lint + formato + pruebas (lo que corre CI y Netlify)                              |
+| `npm run cms`         | Backend local para probar el panel en `/admin/index.html`                         |
+| `npm run media:clean` | Borra fotos y videos que ya no usa el contenido (`-- --dry-run` para solo listar) |
 
 ## Estructura
 
 ```
-assets-src/                Fotografías originales y logotipos de clientes
+assets-src/                Fotografías originales (aquí sube el panel /admin) y clients/ con los logotipos
 assets-brand/              Logotipo original (genera el apple-touch-icon)
-public/videos/             Showreel (WebM + MP4)
+public/admin/              Panel de administración (Decap CMS): index.html + config.yml
+public/videos/             Showreel (aquí sube el panel /admin)
 public/images/             ⚙️  WebP responsivos generados con hash (no se versionan)
 scripts/optimize-images.ts Pipeline de imágenes con sharp
+scripts/clean-orphan-media.ts Limpieza de fotos y videos sin usar
 src/
   components/
     layout/                Header (menú móvil accesible), Footer
@@ -38,7 +42,7 @@ src/
     ui/                    Componentes reutilizables: Button, Icon, Logo (LED en SVG),
                            Section, SectionHeading, IconCard, FormField, Counter,
                            Marquee, VideoPlayer, ResponsiveImage, Reveal, WhatsAppFab
-  content/images.json      🖼️  Qué foto va en cada sección, proyectos y clientes
+  content/images.json      🖼️  Fotos, proyectos, clientes y showreel (lo edita el panel /admin)
   data/
     site.ts                ✏️  Contacto, redes, menú, textos del hero
     services.ts            ✏️  Servicios y casos de uso
@@ -66,9 +70,47 @@ src/
 - **Textos, teléfono, correo, redes:** `src/data/site.ts`.
 - **Servicios y casos de uso:** `src/data/services.ts`.
 - **Historia, valores y proceso:** `src/data/about.ts`.
-- **Fotos, proyectos y logotipos de clientes:** coloca el archivo en `assets-src/` y referencia su
-  ruta en `src/content/images.json` (con su `alt`). Se optimiza solo al correr `dev` o `build`.
+- **Fotos, proyectos, logotipos de clientes y showreel:** desde el panel **/admin** (ver abajo).
 - **Colores y tipografía:** el bloque `@theme` de `src/styles/global.css`.
+
+## Panel de administración de multimedia (/admin)
+
+`/admin/` — basado en [Decap CMS](https://decapcms.org), con inicio de sesión de
+[DecapBridge](https://decapbridge.com) (Google, Microsoft o correo; no hace falta cuenta de GitHub).
+
+Permite cambiar la portada, las fotos de servicios y nosotros, el fondo del llamado a la acción y el
+**showreel**; agregar, quitar y reordenar **proyectos** (foto, cliente, descripción y categoría) y los
+**logotipos de clientes** del carrusel.
+
+**Cómo funciona:** al pulsar _Publicar_, el panel guarda un commit en GitHub (archivo original en
+`assets-src/` o `public/videos/` + cambios en `src/content/images.json`). Netlify detecta el
+commit, optimiza las fotos, corre las verificaciones y publica en ~1–2 minutos. Si algo falla
+(falta una descripción, el video pesa más de 25 MB, una categoría no existe…), no se publica y el
+sitio sigue como estaba.
+
+**Categorías de proyectos:** se definen en `PROJECT_CATEGORIES` (`src/data/images.ts`) y en las
+opciones del campo `category` de `public/admin/config.yml`. Si agregas una, hazlo en ambos lugares
+(una prueba verifica que coincidan).
+
+**Archivos sin usar:** al reemplazar o quitar una foto o video, el panel no borra el anterior.
+GitHub Actions (`clean-media.yml`) los elimina después de cada cambio de contenido (quedan en el
+historial de git). También puedes correr `npm run media:clean`.
+
+**Alta en DecapBridge (ya hecha; ID del sitio en `config.yml`):**
+
+1. Crea el sitio en DecapBridge con el repositorio `josuehmtz/mim-producciones`, _Auth type: PKCE_ y
+   _Login URL_ `https://<dominio principal>/admin/index.html` (debe ser el dominio principal: si el
+   login empieza en otra dirección y Netlify redirige, falla).
+2. Genera en GitHub un token _fine-grained_ con acceso solo a este repositorio y
+   _Contents: Read and write_, y pégalo en DecapBridge.
+3. Copia el ID del sitio que da DecapBridge en `public/admin/config.yml` (`auth_endpoint` y
+   `auth_token_endpoint`, en lugar de `DECAPBRIDGE_SITE_ID`).
+
+**Dar acceso a otra persona:** en DecapBridge → _Manage collaborators_, invítala con su correo.
+Cada commit del panel registra el nombre de quien hizo el cambio.
+
+**Probar el panel en local:** `npm run cms` en una terminal y `npm run dev` en otra; abre
+`http://localhost:5173/admin/index.html`. Los cambios se escriben en tus archivos locales.
 
 ## Rendimiento, accesibilidad y SEO
 

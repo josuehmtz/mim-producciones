@@ -1,17 +1,47 @@
 import content from '../content/images.json'
 import manifest from '../generated/images.manifest.json'
 
+/**
+ * Multimedia del sitio. `src/content/images.json` lo edita el panel /admin
+ * (Decap CMS); este módulo le da tipos y lo expone al resto de la app.
+ */
+
 /** Una imagen tal como se declara en `src/content/images.json`. */
 export interface ImageRef {
   src: string
   alt: string
 }
 
+/**
+ * Categorías de proyectos (filtros de la sección Proyectos).
+ * Deben coincidir con las opciones del panel en `public/admin/config.yml`;
+ * una prueba lo verifica.
+ */
+export const PROJECT_CATEGORIES = [
+  'Corporativo',
+  'Experiencia de marca',
+  'Expo',
+  'Social',
+  'Transmisión',
+  'Venta',
+] as const
+
 export interface Project extends ImageRef {
   client: string
   caption: string
   category: string
 }
+
+/** Video del hero. La ruta es pública (archivo en `public/videos/`). */
+export interface Showreel {
+  video: string
+}
+
+const VIDEO_TYPES: Record<string, string> = { mp4: 'video/mp4', webm: 'video/webm' }
+
+/** Tipo MIME a partir de la extensión (para el atributo `type` de <source>). */
+export const videoType = (path: string) =>
+  VIDEO_TYPES[path.split('.').pop()?.toLowerCase() ?? ''] ?? 'video/mp4'
 
 export interface ImageMeta {
   /** Ruta pública sin ancho ni extensión, p. ej. `/images/8785-ab12cd34` */
@@ -24,6 +54,7 @@ export interface ImageMeta {
 
 interface SiteImages {
   hero: ImageRef
+  showreel: Showreel
   about: ImageRef
   aboutAccent: ImageRef
   ledBackdrop: ImageRef

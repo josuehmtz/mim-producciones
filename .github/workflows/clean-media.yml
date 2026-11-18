@@ -1,0 +1,48 @@
+name: Limpieza de multimedia
+
+# Cuando el panel /admin cambia qué fotos se usan, borra de assets-src/
+# y de public/videos/ los archivos sin usar (Decap CMS no los elimina al reemplazarlos).
+on:
+  push:
+    branches: [main]
+    paths:
+      - src/content/images.json
+  workflow_dispatch:
+
+concurrency:
+  group: clean-media
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  clean:
+    name: Eliminar archivos sin usar
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Descargar código
+        uses: actions/checkout@v4
+
+      - name: Configurar Node
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+
+      - name: Buscar y eliminar archivos sin usar
+        run: node scripts/clean-orphan-media.ts
+
+      - name: Guardar cambios
+        run: |
+          if git diff --quiet -- assets-src public/videos; then
+            echo "Nada que limpiar."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A assets-src public/videos
+          git commit -m "Limpieza: elimina multimedia sin usar"
+          git pull --rebase origin main
+          git push origin HEAD:main

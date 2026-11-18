@@ -79,15 +79,18 @@ export function Logo({
         fill="var(--color-led)"
         className={glow ? 'drop-shadow-[0_0_6px_rgb(61_191_240/0.55)]' : undefined}
       >
-        {dots.map((dot, i) => (
+        {dots.map((dot) => (
           <circle
             key={`${dot.cx}-${dot.cy}`}
             cx={dot.cx}
             cy={dot.cy}
             r={RADIUS}
-            className={animated ? 'animate-pulse-dot' : undefined}
+            className={animated ? 'led-dot' : undefined}
+            // Encendido en barrido diagonal: de izquierda a derecha y de arriba abajo
             style={
-              animated ? ({ animationDelay: `${(i * 137) % 2400}ms` } as CSSProperties) : undefined
+              animated
+                ? ({ '--d': `${Math.round(dot.cx * 4 + dot.cy * 3)}ms` } as CSSProperties)
+                : undefined
             }
           />
         ))}

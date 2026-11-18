@@ -42,6 +42,18 @@ const paths = {
   expand: <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />,
   play: <path d="M7 4v16l13-8Z" />,
   pause: <path d="M8 4v16M16 4v16" />,
+  volume: (
+    <>
+      <path d="M11 5 6 9H2v6h4l5 4V5Z" />
+      <path d="M15.5 8.5a5 5 0 0 1 0 7M19 5a10 10 0 0 1 0 14" />
+    </>
+  ),
+  volumeOff: (
+    <>
+      <path d="M11 5 6 9H2v6h4l5 4V5Z" />
+      <path d="m22 9-6 6M16 9l6 6" />
+    </>
+  ),
   speaker: (
     <>
       <rect x="5" y="2" width="14" height="20" rx="2" />

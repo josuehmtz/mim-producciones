@@ -1,0 +1,167 @@
+# Configuración del panel de administración (Decap CMS) — https://decapcms.org/docs
+# Cada cambio publicado en el panel se convierte en un commit en GitHub;
+# Netlify lo detecta, optimiza las imágenes, verifica y publica (≈1–2 min).
+
+# Inicio de sesión con DecapBridge (https://decapbridge.com): los colaboradores entran
+# con Google, Microsoft o correo, sin cuenta de GitHub. Se invitan y se quitan desde
+# DecapBridge → Manage collaborators. DecapBridge escribe en GitHub con un token
+# fine-grained (solo este repositorio, Contents: read/write) que se guarda allá.
+backend:
+  name: git-gateway
+  repo: josuehmtz/mim-producciones
+  branch: main
+  auth_type: pkce
+  base_url: https://auth.decapbridge.com
+  auth_endpoint: /sites/9cee2144-cd59-4d89-b87c-5b8ae2ff8117/pkce
+  auth_token_endpoint: /sites/9cee2144-cd59-4d89-b87c-5b8ae2ff8117/token
+  gateway_url: https://gateway.decapbridge.com
+  # Registra en el historial quién hizo cada cambio
+  commit_messages:
+    update: 'Admin: actualiza {{collection}} — {{author-name}} <{{author-login}}>'
+    uploadMedia: 'Admin: sube archivo {{path}} — {{author-name}} <{{author-login}}>'
+    deleteMedia: 'Admin: elimina archivo {{path}} — {{author-name}} <{{author-login}}>'
+
+# Datos del usuario que entrega DecapBridge al iniciar sesión (nombre, correo, foto)
+auth:
+  email_claim: email
+  first_name_claim: first_name
+  last_name_claim: last_name
+  avatar_url_claim: avatar_url
+
+# Permite probar el panel en local con `npm run cms` (no aplica en producción)
+local_backend: true
+
+locale: es
+site_url: https://mim-producciones.netlify.app
+display_url: https://mim-producciones.netlify.app
+logo_url: /apple-touch-icon.png
+
+# Dónde se guardan las fotos subidas (las originales; el build genera versiones WebP).
+# public_folder va SIN "/" inicial: Decap trata las rutas con "/" como URLs del sitio
+# publicado, y una foto recién subida aún no existe ahí (la vista previa sale rota).
+media_folder: assets-src
+public_folder: assets-src
+
+collections:
+  - name: multimedia
+    label: Multimedia del sitio
+    description: Fotos, proyectos, logotipos de clientes y showreel. Al publicar, el sitio se actualiza en 1–2 minutos.
+    editor:
+      preview: false
+    files:
+      - name: contenido
+        label: Fotos, proyectos, clientes y video
+        file: src/content/images.json
+        format: json
+        fields:
+          - label: Portada
+            name: hero
+            widget: object
+            collapsed: false
+            hint: Imagen de fondo de la parte superior. Usa una foto horizontal de un escenario o evento; se oscurece para que el texto se lea.
+            fields:
+              - &foto
+                label: Foto
+                name: src
+                widget: image
+                choose_url: false
+                # Sin flags de regex en Decap: se aceptan mayúsculas (.JPG de celular)
+                pattern:
+                  ['\.([jJ][pP][eE]?[gG]|[pP][nN][gG]|[wW][eE][bB][pP])$', 'La foto debe ser JPG, PNG o WebP.']
+              - &altOculto { label: Texto alternativo, name: alt, widget: hidden, default: '' }
+
+          - label: Showreel (video de la portada)
+            name: showreel
+            widget: object
+            collapsed: true
+            hint: Video vertical (9:16), sin audio o con audio opcional, en MP4. Máximo 25 MB; de 10 a 30 segundos es ideal.
+            fields:
+              - label: Video
+                name: video
+                widget: file
+                choose_url: false
+                # Los videos se publican tal cual desde public/videos (no pasan por la optimización de fotos)
+                media_folder: /public/videos
+                public_folder: /videos
+                pattern: ['\.([mM][pP]4|[wW][eE][bB][mM])$', 'El video debe ser MP4 (o WebM).']
+
+          - label: Nosotros · foto principal
+            name: about
+            widget: object
+            collapsed: true
+            fields:
+              - *foto
+              - &alt
+                label: Descripción de la foto
+                name: alt
+                widget: string
+                hint: Describe brevemente lo que se ve (para personas con discapacidad visual y para Google).
+
+          - label: Nosotros · foto pequeña
+            name: aboutAccent
+            widget: object
+            collapsed: true
+            fields: [*foto, *alt]
+
+          - label: Fondo del llamado a la acción
+            name: ledBackdrop
+            widget: object
+            collapsed: true
+            hint: Textura de fondo del recuadro “¿Tienes un evento en puerta?”. Se muestra oscurecida.
+            fields: [*foto, *altOculto]
+
+          - label: Servicios
+            name: services
+            widget: object
+            collapsed: true
+            fields:
+              - { label: Renta de equipo audiovisual, name: rental, widget: object, fields: [*foto, *alt] }
+              - { label: Venta de pantallas LED, name: ledSales, widget: object, fields: [*foto, *alt] }
+              - { label: Producción de eventos, name: production, widget: object, fields: [*foto, *alt] }
+
+          - label: Proyectos
+            name: projects
+            widget: list
+            label_singular: proyecto
+            add_to_top: true
+            collapsed: true
+            min: 1
+            summary: '{{fields.client}} · {{fields.category}}'
+            hint: Arrastra para cambiar el orden. Los primeros se muestran más grandes. Se recomiendan entre 8 y 16.
+            fields:
+              - *foto
+              - *alt
+              - label: Cliente o evento
+                name: client
+                widget: string
+                hint: Por ejemplo “Mercedes-Benz Star Patria”.
+              - label: Qué hicimos
+                name: caption
+                widget: string
+                hint: Una frase corta, por ejemplo “Pantalla LED y sonido para clase de cycling.”
+              - label: Categoría
+                name: category
+                widget: select
+                hint: Define en qué filtro aparece el proyecto.
+                # Deben coincidir con PROJECT_CATEGORIES en src/data/images.ts (una prueba lo verifica)
+                options: ['Corporativo', 'Experiencia de marca', 'Expo', 'Social', 'Transmisión', 'Venta']
+
+          - label: Clientes (carrusel de logotipos)
+            name: clients
+            widget: list
+            label_singular: cliente
+            collapsed: true
+            min: 1
+            summary: '{{fields.alt}}'
+            hint: Logotipos en PNG con fondo transparente. Se muestran en blanco sobre el fondo oscuro, así que cualquier color sirve.
+            fields:
+              - label: Logotipo
+                name: src
+                widget: image
+                choose_url: false
+                media_folder: /assets-src/clients
+                public_folder: assets-src/clients
+                pattern: ['\.([pP][nN][gG]|[wW][eE][bB][pP]|[sS][vV][gG])$', 'El logotipo debe ser PNG, WebP o SVG con fondo transparente.']
+              - label: Nombre de la marca
+                name: alt
+                widget: string

@@ -1,5 +1,5 @@
 /// <reference types="vitest/config" />
-import { readFileSync } from 'node:fs'
+import { cpSync, readFileSync } from 'node:fs'
 import tailwindcss from '@tailwindcss/vite'
 import react from '@vitejs/plugin-react'
 import { defineConfig, type HtmlTagDescriptor, type Plugin } from 'vite'
@@ -36,6 +36,25 @@ const CSP = [
  */
 const SITE_URL = (process.env.URL || 'https://mimproducciones.com').replace(/\/+$/, '')
 
+/**
+ * Publica las fotos originales en /assets-src/ para que el panel /admin pueda
+ * mostrar la vista previa de cada imagen. El sitio público no las usa
+ * (sirve las versiones WebP optimizadas de /images/).
+ */
+function publishOriginals(): Plugin {
+  let outDir = 'dist'
+  return {
+    name: 'mim-publish-originals',
+    apply: 'build',
+    configResolved(config) {
+      outDir = config.build.outDir
+    },
+    closeBundle() {
+      cpSync('assets-src', `${outDir}/assets-src`, { recursive: true })
+    },
+  }
+}
+
 /** Genera robots.txt y sitemap.xml con la dirección pública del sitio. */
 function seoFiles(): Plugin {
   return {
@@ -46,9 +65,15 @@ function seoFiles(): Plugin {
       this.emitFile({
         type: 'asset',
         fileName: 'robots.txt',
-        source: ['User-agent: *', 'Allow: /', '', `Sitemap: ${SITE_URL}/sitemap.xml`, ''].join(
-          '\n',
-        ),
+        source: [
+          'User-agent: *',
+          'Allow: /',
+          'Disallow: /admin/',
+          'Disallow: /assets-src/',
+          '',
+          `Sitemap: ${SITE_URL}/sitemap.xml`,
+          '',
+        ].join('\n'),
       })
       this.emitFile({
         type: 'asset',
@@ -114,7 +139,7 @@ function siteHtml(): Plugin {
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [react(), tailwindcss(), siteHtml(), seoFiles()],
+  plugins: [react(), tailwindcss(), siteHtml(), seoFiles(), publishOriginals()],
   build: {
     target: 'es2022',
     cssCodeSplit: true,
