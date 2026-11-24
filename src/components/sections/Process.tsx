@@ -25,7 +25,7 @@ export function Process() {
 
         <ol className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
           {processSteps.map((step, i) => (
-            <Reveal as="li" key={step.title} delay={i * 90} className="relative">
+            <Reveal as="li" key={step.title} delay={i * 45} className="relative">
               <div className="grid h-full content-start gap-3 card-surface p-6">
                 <span
                   aria-hidden="true"

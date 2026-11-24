@@ -36,16 +36,16 @@ export function About() {
             eyebrow="Quiénes somos"
             title={
               <>
-                Innovación y excelencia <em>en producción audiovisual</em>
+                Desde {FOUNDING_YEAR} en el escenario, <em>hoy en todo México</em>
               </>
             }
-            intro={`Somos una empresa mexicana con sede en Guadalajara, Jalisco. Desde ${FOUNDING_YEAR} subimos el nivel de cada evento con tecnología de vanguardia y un equipo apasionado por el escenario.`}
+            intro={`Somos una empresa mexicana con sede en Guadalajara, Jalisco. Desde ${FOUNDING_YEAR} subimos el nivel de cada evento con tecnología de vanguardia y un equipo apasionado por el escenario, y viajamos a eventos en todo el país.`}
             className="mb-10 lg:mb-10"
           />
 
           <ol className="relative grid gap-8 border-l border-ink-line pl-8">
             {milestones.map((m, i) => (
-              <Reveal as="li" key={m.title} delay={i * 100} className="relative">
+              <Reveal as="li" key={m.title} delay={i * 50} className="relative">
                 <span
                   aria-hidden="true"
                   className="absolute top-1.5 -left-[37px] size-[9px] rounded-full bg-led shadow-[0_0_0_4px_var(--color-ink),0_0_14px_var(--color-led)]"
@@ -65,7 +65,7 @@ export function About() {
         className="mt-section grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5"
       >
         {values.map((value, i) => (
-          <Reveal as="li" key={value.title} delay={i * 80}>
+          <Reveal as="li" key={value.title} delay={i * 40}>
             <IconCard {...value} headingLevel="h4" className="p-6" />
           </Reveal>
         ))}

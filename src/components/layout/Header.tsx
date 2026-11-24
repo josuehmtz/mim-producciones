@@ -3,12 +3,11 @@ import { navItems } from '../../data/site'
 import { useActiveSection } from '../../hooks/useActiveSection'
 import { useScrolled } from '../../hooks/useScrolled'
 import { cn } from '../../utils/cn'
-import { whatsappUrl } from '../../utils/links'
+import { quoteUrl } from '../../utils/links'
 import { Button } from '../ui/Button'
 import { Logo } from '../ui/Logo'
 
 const sectionIds = navItems.map((item) => item.id)
-const quoteUrl = whatsappUrl('Hola, me gustaría cotizar un evento con MIM Producciones.')
 const DESKTOP_QUERY = '(min-width: 60rem)'
 
 export function Header() {
@@ -81,8 +80,8 @@ export function Header() {
 
         {/* El contenedor oculta el botón en móvil (el botón ya define su propio `display`) */}
         <div className="hidden lg:block">
-          <Button href={quoteUrl} external size="sm">
-            Cotizar evento
+          <Button href={quoteUrl()} external size="sm">
+            Cotizar por WhatsApp
           </Button>
         </div>
 
@@ -135,7 +134,7 @@ export function Header() {
             ))}
           </ul>
         </nav>
-        <Button href={quoteUrl} external icon="whatsapp" size="lg">
+        <Button href={quoteUrl()} external icon="whatsapp" size="lg">
           Cotizar por WhatsApp
         </Button>
       </div>

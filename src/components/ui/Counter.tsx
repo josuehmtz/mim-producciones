@@ -18,7 +18,7 @@ export function Counter({
   value,
   prefix = '',
   suffix = '',
-  duration = 1600,
+  duration = 900,
   className,
 }: CounterProps) {
   const { ref, inView } = useInView<HTMLSpanElement>()

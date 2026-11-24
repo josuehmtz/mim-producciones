@@ -140,7 +140,7 @@ export function ContactForm() {
       </div>
 
       <FormField
-        label="Cuéntanos de tu evento"
+        label="Detalles del evento"
         error={errors.message}
         hint="Sede, número de asistentes, equipo que necesitas…"
       >
@@ -156,7 +156,7 @@ export function ContactForm() {
       </FormField>
 
       <div className="mt-1 flex flex-wrap gap-3">
-        <Button type="submit" name="channel" value="whatsapp" icon="whatsapp" className="flex-1">
+        <Button type="submit" name="channel" value="whatsapp" icon="whatsapp" className="flex-auto">
           Enviar por WhatsApp
         </Button>
         <Button
@@ -165,7 +165,7 @@ export function ContactForm() {
           value="email"
           variant="outline"
           icon="mail"
-          className="flex-1"
+          className="flex-auto"
         >
           Enviar por correo
         </Button>

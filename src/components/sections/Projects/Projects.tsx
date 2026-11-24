@@ -37,7 +37,7 @@ export function Projects() {
           eyebrow="Casos de éxito"
           title={
             <>
-              Proyectos que <em>hablan por nosotros</em>
+              Eventos reales, <em>operados por nuestro equipo</em>
             </>
           }
           intro="Una muestra de eventos, stands y producciones que hemos hecho realidad junto a nuestros clientes."
@@ -76,7 +76,7 @@ export function Projects() {
           <Reveal
             as="li"
             key={project.src}
-            delay={(i % 4) * 70}
+            delay={(i % 4) * 50}
             className={filter === ALL ? bentoPattern[i % bentoPattern.length] : undefined}
           >
             <ProjectCard project={project} onOpen={() => setOpenIndex(i)} />

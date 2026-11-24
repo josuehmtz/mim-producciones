@@ -24,9 +24,9 @@ export default function App() {
         <Clients />
         <Services />
         <Projects />
+        <CtaBanner />
         <About />
         <Process />
-        <CtaBanner />
         <Contact />
       </main>
       <Footer />

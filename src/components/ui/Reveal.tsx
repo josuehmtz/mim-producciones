@@ -12,7 +12,7 @@ interface RevealProps {
 
 /** Envuelve contenido para que aparezca suavemente al entrar en pantalla. */
 export function Reveal({ children, as: Tag = 'div', delay = 0, className }: RevealProps) {
-  const { ref, inView } = useInView<HTMLElement>()
+  const { ref, inView } = useInView<HTMLElement>({ threshold: 0, rootMargin: '0px 0px -5% 0px' })
   return (
     <Tag
       ref={ref}

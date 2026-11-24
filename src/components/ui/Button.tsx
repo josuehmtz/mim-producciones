@@ -29,7 +29,7 @@ type NativeButtonProps = CommonProps &
 export type ButtonProps = LinkButtonProps | NativeButtonProps
 
 const base =
-  'group/btn relative inline-flex items-center justify-center gap-2.5 overflow-hidden rounded-full font-display font-semibold tracking-tight whitespace-nowrap transition-[transform,box-shadow,background-color,border-color,color] duration-300 ease-out disabled:pointer-events-none disabled:opacity-50 [&_svg]:size-[1.15em] [&_svg]:shrink-0'
+  'group/btn relative inline-flex items-center justify-center gap-2.5 overflow-hidden rounded-full py-2 text-center leading-tight font-display font-semibold tracking-tight text-balance transition-[transform,box-shadow,background-color,border-color,color] duration-300 ease-out disabled:pointer-events-none disabled:opacity-50 [&_svg]:size-[1.15em] [&_svg]:shrink-0'
 
 const variants: Record<Variant, string> = {
   // Al pasar el cursor, un destello de luz cruza el botón

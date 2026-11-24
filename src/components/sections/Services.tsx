@@ -33,7 +33,7 @@ function ServiceRow({ service, index }: { service: Service; index: number }) {
         </div>
       </Reveal>
 
-      <Reveal delay={120} className="grid gap-6">
+      <Reveal delay={80} className="grid gap-6">
         <p className="inline-flex items-center gap-3 eyebrow text-led">
           <span className="grid size-9 place-items-center rounded-md bg-led/10 [&_svg]:size-5">
             <Icon name={service.icon} />
@@ -59,7 +59,7 @@ function ServiceRow({ service, index }: { service: Service; index: number }) {
             variant="outline"
             trailingIcon="arrowUpRight"
           >
-            Solicitar información
+            Cotizar este servicio
           </Button>
         </div>
       </Reveal>
@@ -75,7 +75,7 @@ export function Services() {
         eyebrow="Servicios"
         title={
           <>
-            Soluciones audiovisuales <em>para cada necesidad</em>
+            Rentamos, vendemos y producimos <em>con equipo propio</em>
           </>
         }
         intro="Renta, venta y producción integral: un solo proveedor para que tu evento se vea y se escuche como lo imaginaste."
@@ -99,7 +99,7 @@ export function Services() {
         />
         <ul role="list" className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {useCases.map((useCase, i) => (
-            <Reveal as="li" key={useCase.title} delay={(i % 3) * 90}>
+            <Reveal as="li" key={useCase.title} delay={(i % 3) * 60}>
               <IconCard {...useCase} />
             </Reveal>
           ))}

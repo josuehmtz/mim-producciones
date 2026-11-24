@@ -1,9 +1,9 @@
 import type { CSSProperties } from 'react'
-import { buildStats, contact, hero } from '../../data/site'
+import { buildStats, hero } from '../../data/site'
 import { siteImages, videoType } from '../../data/images'
 import { useMediaQuery } from '../../hooks/useMediaQuery'
 import { useSpotlight } from '../../hooks/useSpotlight'
-import { whatsappUrl } from '../../utils/links'
+import { quoteUrl } from '../../utils/links'
 import { AnimatedWords } from '../ui/AnimatedWords'
 import { Button } from '../ui/Button'
 import { Counter } from '../ui/Counter'
@@ -89,8 +89,8 @@ export function Hero() {
           </p>
 
           <div className="flex animate-rise flex-wrap gap-3" style={delay(TIMING.actions)}>
-            <Button href={whatsappUrl(contact.whatsappGreeting)} external size="lg" icon="whatsapp">
-              Cotiza tu evento
+            <Button href={quoteUrl()} external size="lg" icon="whatsapp">
+              Cotizar por WhatsApp
             </Button>
             <Button href="#proyectos" variant="outline" size="lg" trailingIcon="arrow">
               Ver proyectos
@@ -129,7 +129,11 @@ export function Hero() {
             <div key={stat.label} className="grid gap-1">
               <dt className="order-2 text-sm text-fg-muted">{stat.label}</dt>
               <dd className="order-1 font-display text-[clamp(1.75rem,1.3rem+1.4vw,2.75rem)] leading-none font-semibold tracking-tight">
-                <Counter value={stat.value} prefix={stat.prefix} suffix={stat.suffix} />
+                {'text' in stat ? (
+                  stat.text
+                ) : (
+                  <Counter value={stat.value} prefix={stat.prefix} suffix={stat.suffix} />
+                )}
               </dd>
             </div>
           ))}

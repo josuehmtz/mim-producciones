@@ -1,8 +1,7 @@
 import type { ReactNode } from 'react'
-import { contact, social } from '../../../data/site'
-import { mailtoUrl, telUrl, whatsappUrl } from '../../../utils/links'
+import { contact } from '../../../data/site'
+import { mailtoUrl, quoteUrl, telUrl } from '../../../utils/links'
 import { Icon, type IconName } from '../../ui/Icon'
-import { Reveal } from '../../ui/Reveal'
 import { Section } from '../../ui/Section'
 import { SectionHeading } from '../../ui/SectionHeading'
 import { ContactForm } from './ContactForm'
@@ -57,27 +56,33 @@ export function Contact() {
             eyebrow="Contacto"
             title={
               <>
-                Transformemos tu idea <em>en una experiencia</em>
+                Cuéntanos de tu evento, <em>te respondemos el mismo día</em>
               </>
             }
-            intro="Cuéntanos qué necesitas y te asesoramos sin compromiso."
+            intro="Te asesoramos sin compromiso, por WhatsApp o por correo."
             className="mb-10 lg:mb-12"
           />
 
           <ul role="list" className="grid gap-6">
             <li>
-              <ChannelLink
-                icon="whatsapp"
-                label="WhatsApp"
-                href={whatsappUrl(contact.whatsappGreeting)}
-                external
-              >
-                {contact.phoneDisplay}
-              </ChannelLink>
-            </li>
-            <li>
-              <ChannelLink icon="phone" label="Llámanos" href={telUrl()}>
-                {contact.phoneDisplay}
+              <ChannelLink icon="whatsapp" label="WhatsApp o llamada">
+                <span className="flex flex-wrap items-baseline gap-x-4 gap-y-1">
+                  <a
+                    href={quoteUrl()}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="underline-offset-4 hover:text-led-light hover:underline"
+                  >
+                    {contact.phoneDisplay}
+                  </a>
+                  <a
+                    href={telUrl()}
+                    className="-my-2 inline-flex items-center gap-1.5 py-2 text-sm text-fg-muted underline-offset-4 hover:text-led-light hover:underline [&_svg]:size-3.5"
+                  >
+                    <Icon name="phone" />
+                    Llamar
+                  </a>
+                </span>
               </ChannelLink>
             </li>
             <li>
@@ -91,25 +96,9 @@ export function Contact() {
               </ChannelLink>
             </li>
           </ul>
-
-          <div className="mt-10 flex gap-3">
-            {social.map((s) => (
-              <a
-                key={s.name}
-                href={s.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex min-h-11 items-center gap-2 rounded-full border border-ink-line px-5 text-sm text-fg-muted transition-colors duration-200 hover:border-led hover:text-led [&_svg]:size-4"
-              >
-                <Icon name={s.icon} /> {s.name}
-              </a>
-            ))}
-          </div>
         </div>
 
-        <Reveal>
-          <ContactForm />
-        </Reveal>
+        <ContactForm />
       </div>
     </Section>
   )
