@@ -1,6 +1,5 @@
 import { siteImages } from '../../data/images'
-import { contact } from '../../data/site'
-import { whatsappUrl } from '../../utils/links'
+import { quoteUrl } from '../../utils/links'
 import { Button } from '../ui/Button'
 import { ResponsiveImage } from '../ui/ResponsiveImage'
 import { Reveal } from '../ui/Reveal'
@@ -26,12 +25,9 @@ export function CtaBanner() {
           <p className="mx-auto mt-5 max-w-xl text-lg text-fg-muted">
             Cuéntanos qué necesitas y te asesoramos sin compromiso. Respondemos el mismo día.
           </p>
-          <div className="mt-9 flex flex-wrap justify-center gap-3">
-            <Button href={whatsappUrl(contact.whatsappGreeting)} external icon="whatsapp" size="lg">
-              Escríbenos por WhatsApp
-            </Button>
-            <Button href="#contacto" variant="outline" size="lg">
-              Enviar solicitud
+          <div className="mt-9 flex justify-center">
+            <Button href={quoteUrl()} external icon="whatsapp" size="lg">
+              Cotizar por WhatsApp
             </Button>
           </div>
         </div>

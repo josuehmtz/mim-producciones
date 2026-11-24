@@ -9,7 +9,8 @@ export const contact = {
   phoneDisplay: '+52 33 2261 2327',
   email: 'contacto@mimproducciones.com',
   city: 'Guadalajara, Jalisco',
-  whatsappGreeting: '¡Hola! Me interesa conocer más sobre sus servicios de producción audiovisual.',
+  /** Mensaje con el que se abre WhatsApp desde cualquier botón de cotizar */
+  quoteMessage: 'Hola, me gustaría cotizar un evento con MIM Producciones.',
 } as const
 
 export const social = [
@@ -41,20 +42,18 @@ export const hero = {
   title: 'Convertimos ideas en emociones que',
   highlight: 'trascienden la pantalla',
   intro:
-    'Pantallas LED, audio, iluminación y producción integral para eventos corporativos, sociales y exposiciones. Tecnología de última generación operada por un equipo que vive el escenario.',
+    'Pantallas LED, audio, iluminación y producción integral para eventos corporativos, sociales y exposiciones en todo México. Equipo propio, operado por técnicos que viven el escenario.',
 } as const
 
-export interface Stat {
-  value: number
-  prefix?: string
-  suffix?: string
-  label: string
-}
+/** Cifra animada (`value`) o dato en texto (`text`), con su etiqueta. */
+export type Stat =
+  | { value: number; prefix?: string; suffix?: string; label: string }
+  | { text: string; label: string }
 
 /** Cifras del hero. Se calculan para que no queden desactualizadas. */
 export const buildStats = (clientCount: number, now = new Date()): Stat[] => [
-  { value: now.getFullYear() - FOUNDING_YEAR, prefix: '+', label: 'años creando experiencias' },
-  { value: 3, suffix: ' años', label: 'de garantía en pantallas LED' },
+  { value: now.getFullYear() - FOUNDING_YEAR, prefix: '+', label: `años desde ${FOUNDING_YEAR}` },
   { value: clientCount, prefix: '+', label: 'marcas líderes confían en nosotros' },
-  { value: 360, suffix: '°', label: 'del concepto al desmontaje' },
+  { text: 'Equipo propio', label: 'sin subrentas' },
+  { text: 'Nacional', label: 'viajamos a todo México' },
 ]

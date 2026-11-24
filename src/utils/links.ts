@@ -17,3 +17,6 @@ export function mailtoUrl(subject?: string, body?: string): string {
 }
 
 export const telUrl = () => `tel:+${contact.whatsapp}`
+
+/** WhatsApp con el mensaje de cotización: el destino de todos los botones de cotizar. */
+export const quoteUrl = () => whatsappUrl(contact.quoteMessage)

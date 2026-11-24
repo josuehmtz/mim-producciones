@@ -1,6 +1,6 @@
 import { contact, CURRENT_YEAR, navItems, social } from '../../data/site'
 import { services } from '../../data/services'
-import { mailtoUrl, telUrl, whatsappUrl } from '../../utils/links'
+import { mailtoUrl, quoteUrl, telUrl } from '../../utils/links'
 import { Icon } from '../ui/Icon'
 import { Logo } from '../ui/Logo'
 
@@ -68,7 +68,7 @@ export function Footer() {
             </li>
             <li>
               <a
-                href={whatsappUrl(contact.whatsappGreeting)}
+                href={quoteUrl()}
                 target="_blank"
                 rel="noopener noreferrer"
                 className={`${linkClass} inline-flex items-center gap-2.5`}
